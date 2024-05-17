@@ -2,8 +2,9 @@ package com.app.BookARoom.dao;
 
 import java.io.Serializable;
 
-import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.*;
 @Entity
 @Table(name = "room")
 public class Room implements Serializable{
@@ -15,6 +16,7 @@ public class Room implements Serializable{
     private boolean isAvailable;
     private int price;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name="hotel_id", nullable=false)
     private Hotel hotel;

@@ -28,7 +28,10 @@ public class HotelController {
     public ResponseEntity<List<Hotel>> getAllHotels() {
         return new ResponseEntity<>(hotelService.getAllHotels(), HttpStatus.OK);
     }
-
+    @GetMapping("/allinrange")
+    public ResponseEntity<List<Hotel>> getAllHotelsInRange() {
+        return new ResponseEntity<>(hotelService.getHotelsInRange(47.17, 27.57, 1000000000), HttpStatus.OK);
+    }
     @PostMapping("/add")
     public ResponseEntity<Hotel> addHotel(@RequestBody Hotel hotel){
         return new ResponseEntity<>(hotelService.addHotel(hotel), HttpStatus.OK);

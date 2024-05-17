@@ -1,12 +1,15 @@
 package com.app.BookARoom.service;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.app.BookARoom.dao.Hotel;
+import com.app.BookARoom.dao.Room;
 import com.app.BookARoom.repo.HotelRepository;
 
 @Service
@@ -25,10 +28,18 @@ public class HotelService {
     public void deleteHotel(Long id) {
         hotelRepository.deleteById(id);
     }
-    public List<Hotel> getHotelsWithinRange(double currentLat, double currentLon, int rangeKm){
+    public List<Hotel> getHotelsInRange(double currentLat, double currentLon, int rangeKm){
          return hotelRepository.findAll().stream()
                 .filter(hotel -> calculateDistance(currentLat, currentLon, hotel.getLatitude(), hotel.getLongitude()) <= rangeKm)
                 .collect(Collectors.toList());
+    }
+     public List<Room> getRoomsByHotelId(Long hotelId) {
+        Optional<Hotel> optionalHotel = hotelRepository.findById(hotelId);
+        if (optionalHotel.isPresent()) {
+            Hotel hotel = optionalHotel.get();
+            return hotel.getRooms();
+        }
+        return Collections.emptyList();
     }
     private static double calculateDistance(double lat1, double lon1, double lat2, double lon2) {
         final double EARTH_RADIUS = 6371.0;
