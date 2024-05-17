@@ -19,7 +19,7 @@ public class Hotel implements Serializable {
     @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Room> rooms = new ArrayList<>();
     @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    private List<Feedback> feedbackList = new ArrayList<>();
+    private List<Feedback> feedbacks = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -59,6 +59,13 @@ public class Hotel implements Serializable {
 
     public void setRooms(List<Room> rooms) {
         this.rooms = rooms;
+    }
+    public List<Feedback> getFeedbacks() {
+        return feedbacks;
+    }
+
+    public void setFeedbacks(List<Feedback> feedbacks) {
+        this.feedbacks = feedbacks;
     }
 
     @Override

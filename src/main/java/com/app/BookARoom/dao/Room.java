@@ -1,6 +1,8 @@
 package com.app.BookARoom.dao;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -20,6 +22,9 @@ public class Room implements Serializable{
     @ManyToOne
     @JoinColumn(name="hotel_id", nullable=false)
     private Hotel hotel;
+
+    @OneToMany(mappedBy = "room", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<Reservation> reservations = new ArrayList<>();
     public Long getId() {
         return id;
     }
@@ -67,6 +72,16 @@ public class Room implements Serializable{
     public void setHotel(Hotel hotel) {
         this.hotel = hotel;
     }
+
+    public List<Reservation> getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(List<Reservation> reservations) {
+        this.reservations = reservations;
+    }
+    
+
     @Override
     public String toString() {
     return "Room{" +

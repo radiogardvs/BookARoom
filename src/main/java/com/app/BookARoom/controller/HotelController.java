@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.BookARoom.dao.Hotel;
+import com.app.BookARoom.dao.Room;
 import com.app.BookARoom.service.HotelService;
 
 @RestController
@@ -30,7 +31,12 @@ public class HotelController {
     }
     @GetMapping("/allinrange")
     public ResponseEntity<List<Hotel>> getAllHotelsInRange() {
-        return new ResponseEntity<>(hotelService.getHotelsInRange(47.17, 27.57, 1000000000), HttpStatus.OK);
+        return new ResponseEntity<>(hotelService.getHotelsInRange(40.17, 27.57, 100000), HttpStatus.OK);
+    }
+     @GetMapping("/{hotelId}/rooms")
+    public ResponseEntity<List<Room>> getRoomsByHotelId(@PathVariable Long hotelId) {
+        List<Room> rooms = hotelService.getRoomsByHotelId(hotelId);
+        return ResponseEntity.ok(rooms);
     }
     @PostMapping("/add")
     public ResponseEntity<Hotel> addHotel(@RequestBody Hotel hotel){

@@ -4,10 +4,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import com.app.BookARoom.dao.Feedback;
 import com.app.BookARoom.dao.Hotel;
 import com.app.BookARoom.dao.Room;
 import com.app.BookARoom.repo.HotelRepository;
@@ -39,6 +38,14 @@ public class HotelService {
             Hotel hotel = optionalHotel.get();
             return hotel.getRooms();
         }
+        return Collections.emptyList();
+    }
+    public List<Feedback> getFeedbacksByHotelId(Long hotelId) {
+        Optional<Hotel> hotelOptional = hotelRepository.findById(hotelId);
+        if (hotelOptional.isPresent()) {
+            Hotel hotel = hotelOptional.get();
+            return hotel.getFeedbacks();
+        } 
         return Collections.emptyList();
     }
     private static double calculateDistance(double lat1, double lon1, double lat2, double lon2) {
