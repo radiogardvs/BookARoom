@@ -29,9 +29,9 @@ public class HotelController {
     public ResponseEntity<List<Hotel>> getAllHotels() {
         return new ResponseEntity<>(hotelService.getAllHotels(), HttpStatus.OK);
     }
-    @GetMapping("/allinrange")
-    public ResponseEntity<List<Hotel>> getAllHotelsInRange() {
-        return new ResponseEntity<>(hotelService.getHotelsInRange(40.17, 27.57, 100000), HttpStatus.OK);
+    @GetMapping("/allinrange/{latitude}/{longitude}/{range}")
+    public ResponseEntity<List<Hotel>> getAllHotelsInRange(@PathVariable("latitude") Double latitude, @PathVariable("longitude") Double longitude, @PathVariable("range") int range) {
+        return new ResponseEntity<>(hotelService.getHotelsInRange(latitude, longitude, range), HttpStatus.OK);
     }
      @GetMapping("/{hotelId}/rooms")
     public ResponseEntity<List<Room>> getRoomsByHotelId(@PathVariable Long hotelId) {
